@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Render/Docker
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
