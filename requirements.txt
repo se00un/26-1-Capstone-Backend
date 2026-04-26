@@ -4,3 +4,7 @@ sqlalchemy
 psycopg2-binary
 pydantic
 pydantic-settings
+python-jose[cryptography]
+google-auth
+email-validator
+requests
