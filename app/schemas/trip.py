@@ -5,8 +5,6 @@ from datetime import date as Date, datetime
 # --- Trip Schemas ---
 class TripBase(BaseModel):
     title: str
-    representative_lat: float
-    representative_lng: float
     is_group_trip: Optional[bool] = False
     
 class TripCreate(TripBase):
@@ -23,6 +21,9 @@ class TripResponse(TripBase):
 
     class Config:
         from_attributes = True
+
+class TripMyResponse(TripResponse):
+    role: str
 
 # --- Trip Member Schemas ---
 class TripMemberBase(BaseModel):
@@ -46,6 +47,9 @@ class InvitationBase(BaseModel):
     invite_code: str
     invited_by: int
     status: Optional[str] = "pending"
+    expires_at: Optional[datetime] = None
+
+class InvitationRequest(BaseModel):
     expires_at: Optional[datetime] = None
 
 class InvitationCreate(InvitationBase):
