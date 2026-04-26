@@ -9,6 +9,7 @@ class Route(Base):
     trip_id = Column(BigInteger, ForeignKey("trips.id"))
     title = Column(String(255))
     created_by = Column(BigInteger, ForeignKey("users.id"))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     # Relationships
     trip = relationship("Trip", back_populates="routes")
@@ -21,8 +22,12 @@ class RoutePlace(Base):
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     route_id = Column(BigInteger, ForeignKey("routes.id"))
     place_name = Column(String(255), nullable=False)
+    country = Column(String(255), nullable=False)
+    city = Column(String(255), nullable=False)
+    address = Column(String(255), nullable=False)
     latitude = Column(DECIMAL(10, 6), nullable=False)
     longitude = Column(DECIMAL(10, 6), nullable=False)
+    place_type = Column(String(20), nullable=False)
     visit_order = Column(Integer, nullable=False)
     memo = Column(Text)
     visited_at = Column(DateTime(timezone=True))

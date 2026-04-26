@@ -22,4 +22,3 @@ class User(Base):
     uploaded_receipts = relationship("Receipt", back_populates="uploader")
     created_routes = relationship("Route", back_populates="creator")
     vote_responses = relationship("VoteResponse", back_populates="user")
-    user_history = relationship("UserHistory", back_populates="user", uselist=False)

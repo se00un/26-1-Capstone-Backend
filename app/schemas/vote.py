@@ -34,6 +34,7 @@ class VoteBase(BaseModel):
     trip_id: int
     created_by: int
     title: str
+    description: Optional[str] = None
     status: Optional[str] = 'active'
 
 class VoteCreate(VoteBase):

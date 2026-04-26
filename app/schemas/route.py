@@ -4,8 +4,12 @@ from datetime import datetime
 
 class RoutePlaceBase(BaseModel):
     place_name: str
+    country: str
+    city: str
+    address: str
     latitude: float
     longitude: float
+    place_type: str
     visit_order: int
     memo: Optional[str] = None
     visited_at: Optional[datetime] = None
@@ -30,6 +34,7 @@ class RouteCreate(RouteBase):
 
 class RouteResponse(RouteBase):
     id: int
+    created_at: datetime
     places: List[RoutePlaceResponse] = []
 
     class Config:

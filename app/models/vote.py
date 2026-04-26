@@ -9,6 +9,7 @@ class Vote(Base):
     trip_id = Column(BigInteger, ForeignKey("trips.id"))
     created_by = Column(BigInteger, ForeignKey("users.id"))
     title = Column(String(255), nullable=False)
+    description = Column(String(255))
     status = Column(String(50), default='active')
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
