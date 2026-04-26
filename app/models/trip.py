@@ -8,8 +8,6 @@ class Trip(Base):
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     owner_id = Column(BigInteger, ForeignKey("users.id"))
     title = Column(String(255), nullable=False)
-    representative_lat = Column(DECIMAL(10, 6), nullable=False)
-    representative_lng = Column(DECIMAL(10, 6), nullable=False)
     start_date = Column(Date, nullable=False)  
     end_date = Column(Date, nullable=False)
     is_group_trip = Column(Boolean, default=False)
