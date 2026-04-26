@@ -7,6 +7,12 @@ ENV PYTHONUNBUFFERED 1
 # 작업 디렉토리 설정
 WORKDIR /app
 
+# PostgreSQL 드라이버 설치를 위한 패키지 설치
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # 의존성 파일 복사 및 설치
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

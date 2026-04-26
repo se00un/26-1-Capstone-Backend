@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, func, BigInteger
+from sqlalchemy import Column, String, DateTime, func, BigInteger
+from sqlalchemy.orm import relationship
 from app.db.database import Base
 
 class User(Base):
@@ -12,4 +13,13 @@ class User(Base):
     provider_id = Column(String(255), unique=True, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
-    # 기초 뼈대: 관계 설정, 기타 필드 추가 필요
+    # Relationships
+    trips = relationship("Trip", back_populates="owner")
+    trip_memberships = relationship("TripMember", back_populates="user")
+    invitations_sent = relationship("Invitation", back_populates="inviter")
+    expenses = relationship("Expense", back_populates="creator")
+    expense_splits = relationship("ExpenseSplit", back_populates="user")
+    uploaded_receipts = relationship("Receipt", back_populates="uploader")
+    created_routes = relationship("Route", back_populates="creator")
+    vote_responses = relationship("VoteResponse", back_populates="user")
+    user_history = relationship("UserHistory", back_populates="user", uselist=False)

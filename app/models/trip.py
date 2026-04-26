@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, DECIMAL, BigInteger, func, ForeignKey
+from sqlalchemy import Column, String, DateTime, Boolean, DECIMAL, BigInteger, func, ForeignKey, Date
+from sqlalchemy.orm import relationship
 from app.db.database import Base
 
 class Trip(Base):
@@ -15,4 +16,13 @@ class Trip(Base):
     status = Column(String(50), default='ongoing')
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
-    # 기초 뼈대: 모델 필드 추가 및 관계 매핑 필요
+    # Relationships
+    owner = relationship("User", back_populates="trips")
+    members = relationship("TripMember", back_populates="trip")
+    invitations = relationship("Invitation", back_populates="trip")
+    budgets = relationship("Budget", back_populates="trip")
+    expenses = relationship("Expense", back_populates="trip")
+    receipts = relationship("Receipt", back_populates="trip")
+    routes = relationship("Route", back_populates="trip")
+    votes = relationship("Vote", back_populates="trip")
+    trip_report = relationship("TripReport", back_populates="trip", uselist=False)

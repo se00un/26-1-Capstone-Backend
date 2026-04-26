@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import date as Date
 
 # 기초 뼈대
 class TripBase(BaseModel):

@@ -29,3 +29,6 @@ logs/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# 참고용 md
+.md
