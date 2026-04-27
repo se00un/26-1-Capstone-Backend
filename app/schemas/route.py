@@ -2,6 +2,13 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 
+class RoutePlaceOrder(BaseModel):
+    place_id: int
+    visit_order: int
+
+class RoutePlaceOrderUpdate(BaseModel):
+    orders: List[RoutePlaceOrder]
+
 class RoutePlaceBase(BaseModel):
     place_name: str
     country: str
@@ -29,8 +36,9 @@ class RouteBase(BaseModel):
     title: Optional[str] = None
     created_by: int
 
-class RouteCreate(RouteBase):
-    pass
+class RouteCreate(BaseModel):
+    trip_id: int
+    title: str
 
 class RouteResponse(RouteBase):
     id: int
