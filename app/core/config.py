@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+# render 배포용 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Trip-log"
     API_PREFIX: str = "/api"
