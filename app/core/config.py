@@ -1,8 +1,12 @@
 from pydantic_settings import BaseSettings
 
+# render 배포용 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Trip-log"
     API_PREFIX: str = "/api"
+    
+    # CORS Configuration
+    CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://localhost:3000"]
     
     # DB Configuration
     DATABASE_URL: str
