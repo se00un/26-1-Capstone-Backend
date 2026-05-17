@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 7 days
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
     GOOGLE_CLIENT_ID: str
+
+    # Report Generation Configuration
+    REPORT_OPENAI_API_KEY: str
+    
     class Config:
         case_sensitive = True
         env_file = ".env"
