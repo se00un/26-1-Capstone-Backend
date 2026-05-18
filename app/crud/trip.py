@@ -74,3 +74,10 @@ def add_trip_member(db: Session, trip_id: int, user_id: int, role: str = "editor
     db.commit()
     db.refresh(db_member)
     return db_member
+
+def delete_trip(db: Session, trip_id: int):
+    trip = db.query(Trip).filter(Trip.id == trip_id).first()
+    if trip:
+        db.delete(trip)
+        db.commit()
+    return trip
