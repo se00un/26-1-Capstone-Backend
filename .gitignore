@@ -20,6 +20,7 @@ venv.bak/
 
 # Render/Docker
 docker-compose.override.yml
+google-credentials.json
 
 # Logs
 logs/
