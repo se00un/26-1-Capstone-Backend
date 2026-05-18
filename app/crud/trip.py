@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 def get_trip_by_id(db: Session, trip_id: int):
     return db.query(Trip).filter(Trip.id == trip_id).first()
 
+def get_trip_member(db: Session, trip_id: int, user_id: int):
+    return db.query(TripMember).filter(TripMember.trip_id == trip_id, TripMember.user_id == user_id).first()
+
 def create_trip(db: Session, trip_in: TripCreate, owner_id: int):
     db_trip = Trip(
         owner_id=owner_id,

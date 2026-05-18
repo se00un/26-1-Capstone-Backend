@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.endpoints import user_router, trip_router, auth_router, invite_router, route_router, receipt_router
+from app.api.endpoints import user_router, trip_router, auth_router, invite_router, route_router, receipt_router, budget_router, expense_router
 
 api_router = APIRouter()
 
@@ -9,3 +9,5 @@ api_router.include_router(trip_router.router, prefix="/trips", tags=["trips"])
 api_router.include_router(invite_router.router, prefix="/invites", tags=["invites"])
 api_router.include_router(route_router.router, prefix="/routes", tags=["routes"])
 api_router.include_router(receipt_router.router, prefix="/receipts", tags=["receipts"])
+api_router.include_router(budget_router.router, prefix="/budget", tags=["budget"])
+api_router.include_router(expense_router.router, prefix="/expenses", tags=["expenses"])

@@ -1,6 +1,3 @@
-"""
-CRUD operations for Budget and Expense models
-"""
 from sqlalchemy.orm import Session
 from app.models.budget import Budget, Expense, ExpenseSplit
 from app.schemas.budget import BudgetCreate, ExpenseCreate
@@ -10,10 +7,10 @@ from datetime import datetime
 
 # ============ Budget CRUD ============
 
-def create_budget(db: Session, budget_in: BudgetCreate) -> Budget:
+def create_budget(db: Session, trip_id: int, budget_in: BudgetCreate) -> Budget:
     """Create a new budget"""
     db_budget = Budget(
-        trip_id=budget_in.trip_id,
+        trip_id=trip_id,
         category=budget_in.category,
         amount=budget_in.amount,
         currency=budget_in.currency,
