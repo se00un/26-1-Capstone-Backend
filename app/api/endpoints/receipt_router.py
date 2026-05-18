@@ -7,6 +7,8 @@ from datetime import datetime
 from app.db.database import get_db
 from app.api.deps import get_current_user
 from app.models.user import User
+from app.schemas.budget import ExpenseCreate
+from app.services.exchange_service import get_exchange_rate
 from app.services import receipt_service
 from app.crud import receipt as receipt_crud
 
@@ -136,7 +138,7 @@ def get_receipt_detail(
 @router.post("/{receipt_id}/confirm-receipt", status_code=201)
 def confirm_receipt(
     receipt_id: int,
-    expense_data: dict,
+    expense_in: ExpenseCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -151,7 +153,6 @@ def confirm_receipt(
     - category: Expense category
     - amount_original: Original amount
     - currency: Currency code (KRW, USD, etc.)
-    - amount_krw: Amount in KRW
     - expense_date: Expense date (YYYY-MM-DD)
     - memo: Optional memo
     - created_by: User ID who created this
@@ -175,12 +176,15 @@ def confirm_receipt(
             detail="You do not have permission to confirm this receipt"
         )
     
-    # Ensure expense_data has required fields
-    if "trip_id" not in expense_data:
-        expense_data["trip_id"] = db_receipt.trip_id
+    expense_data = expense_in.model_dump()
+    expense_data["trip_id"] = db_receipt.trip_id
+    expense_data["created_by"] = current_user.id
     
-    if "created_by" not in expense_data:
-        expense_data["created_by"] = current_user.id
+    # 환율 로직 적용
+    expense_date_str = expense_in.expense_date.strftime("%Y-%m-%d")
+    currency = expense_in.currency or "KRW"
+    rate, _ = get_exchange_rate(expense_date_str, currency, "KRW")
+    expense_data["amount_krw"] = float(expense_in.amount_original) * rate
     
     # Confirm receipt as expense
     result = receipt_service.confirm_receipt_as_expense(
@@ -194,6 +198,9 @@ def confirm_receipt(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=result["error"]
         )
+        
+    if result:
+        result["exchange_rate"] = rate
     
     return result
 
